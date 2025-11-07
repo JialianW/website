@@ -79,6 +79,48 @@
       font-size: 0.9em;
       margin-top: 2em;
     }
+    /* Flip effect */
+    .flip-card {
+      display: grid;                 /* lets both images stack in the same cell */
+      perspective: 1000px;           /* 3D depth */
+      cursor: pointer;
+    }
+    .flip-card > img {
+      grid-area: 1 / 1;              /* stack */
+      width: 100%;
+      border-radius: 8px;
+      backface-visibility: hidden;   /* hide the backside when flipped */
+      transition: transform 600ms;
+      transform-style: preserve-3d;
+      display: block;
+      object-fit: cover;
+    }
+
+    /* Start with the back photo rotated 180deg (hidden) */
+    .flip-card > img.back {
+      transform: rotateY(180deg);
+    }
+
+    /* On hover/focus, flip: front rotates away, back rotates into view */
+    .flip-card:hover > img.front,
+    .flip-card:focus-within > img.front,
+    .flip-card.flipped > img.front {            /* .flipped is for mobile tap */
+      transform: rotateY(180deg);
+    }
+    .flip-card:hover > img.back,
+    .flip-card:focus-within > img.back,
+    .flip-card.flipped > img.back {
+      transform: rotateY(360deg);
+    }
+
+    /* Respect users who prefer reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .flip-card > img { transition: none; }
+    }
+
+    /* Keep your existing .artist-image sizing */
+    .artist-image { flex: 1 1 40%; max-width: 300px; }
+
   </style>
 </head>
 
@@ -86,12 +128,15 @@
   <div class="container">
     <div class="intro-text">
       <p style="font-size:1.1em;">I enjoy all kinds of music and try to play the guitar version of them.</p>
-      <p style="font-size:1.1em;">Here, I share some of the music I love most.</p>
+      <p style="font-size:1.1em;">Here, I share some of the music I love most. (Hover over the picture to see a photo I took at the concert!)</p>
     </div>
 
     <div class="artist-section">
       <div class="artist-image">
-        <img src="data/artist/Jakob.jpeg" alt="Jakob Dylan">
+        <div class="flip-card" tabindex="0" aria-label="Flip to see concert photo">
+          <img class="front" src="data/artist/Jakob.jpeg" alt="Jakob Dylan">
+          <img class="back"  src="data/artist/Jakob-concert.png" alt="Jakob Dylan concert photo">
+        </div>
       </div>
       <div class="song-list">
         <h2>Jakob Dylan</h2>
@@ -106,7 +151,10 @@
 
     <div class="artist-section">
         <div class="artist-image">
-          <img src="data/artist/Beatles.jpg" alt="The Beatles">
+          <div class="flip-card" tabindex="0" aria-label="Flip to see concert photo">
+            <img class="front" src="data/artist/Beatles.jpg" alt="The Beatles">
+            <img class="back"  src="data/artist/Beatles-concert.png" alt="The Beatles concert photo">
+          </div>
         </div>
         <div class="song-list">
           <h2>The Beatles</h2>
@@ -162,7 +210,10 @@
 
       <div class="artist-section">
         <div class="artist-image">
-          <img src="data/artist/john.jpg" alt="John Mayer">
+          <div class="flip-card" tabindex="0" aria-label="Flip to see concert photo">
+            <img class="front" src="data/artist/John.jpg" alt="John Mayer">
+            <img class="back"  src="data/artist/John-concert.png" alt="John Mayer concert photo">
+          </div>
         </div>
         <div class="song-list">
           <h2>John Mayer</h2>
@@ -187,7 +238,10 @@ Paper Doll</a></li>
     
     <div class="artist-section">
         <div class="artist-image">
-          <img src="data/artist/Macklemore.jpeg" alt="Macklemore">
+          <div class="flip-card" tabindex="0" aria-label="Flip to see concert photo">
+            <img class="front" src="data/artist/Macklemore.jpeg" alt="Macklemore">
+            <img class="back"  src="data/artist/Macklemore-concert.png" alt="Macklemore concert photo">
+          </div>
         </div>
         <div class="song-list">
           <h2>Macklemore</h2>
